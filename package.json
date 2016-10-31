@@ -1,0 +1,30 @@
+{
+    "name": "laravel-elixir6-useref",
+    "version": "1.0.0",
+    "description": "Useref Extension for Laravel Elixir 6.x",
+    "main": "dist/index.js",
+    "repository": {
+        "url": "https://github.com/farrrr/laravel-elixir6-useref",
+        "type": "git"
+    },
+    "author": "Far Tseng <farrrr@gmail.com>",
+    "license": "MIT",
+    "scripts": {
+        "compile": "babel --presets=es2015 -d dist src",
+        "prepublish": "npm run compile"
+    },
+    "keywords": [
+        "laravel",
+        "elixir",
+        "gulp",
+        "useref"
+    ],
+    "dependencies": {
+        "gulp-useref": "^3.1.2",
+        "lodash": "^4.16.5"
+    },
+    "devDependencies": {
+        "babel-cli": "^6.18.0",
+        "babel-preset-es2015": "^6.18.0"
+    }
+}
