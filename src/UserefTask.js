@@ -1,5 +1,9 @@
+import gulpIgnore from 'gulp-ignore';
+import gulpif from 'gulp-if';
 import isArray from 'lodash/isArray';
 import mergeWith from 'lodash/mergeWith';
+import minifyCss from 'gulp-clean-css';
+import uglify from 'gulp-uglify';
 
 let gulpUseref;
 
@@ -20,25 +24,19 @@ class UserefTask extends Elixir.Task {
         .src(this.src.path)
         .pipe(this.useref())
         .on('error', this.onError())
-        .pipe(gulp.dest(this.output.path))
+        .pipe(gulpIgnore('*.php'))
+        .pipe(gulpif('*.js', uglify()))
+        .pipe(gulpif('*.css', minifyCss()))
         .on('error', this.onError())
+        .pipe(this.saveAs(gulp))
+        .pipe(this.onSuccess())
     );
   }
 
   useref() {
-    return gulpUseref(this.mergeConfig());
-  }
+    this.recordStep('Parsing php file');
 
-  mergeConfig() {
-    return mergeWith(
-      Elixir.useref.config,
-      this.options,
-      (objValue, srcValue) => {
-        if (isArray(objValue)) {
-          return objValue.concat(srcValue);
-        }
-      }
-    );
+    return gulpUseref(this.options);
   }
 }
 

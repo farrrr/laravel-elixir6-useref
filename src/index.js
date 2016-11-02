@@ -1,13 +1,14 @@
 import UserefTask from './UserefTask';
 
-/*
-  Useref
- */
-Elixir.useref = {};
+Elixir.extend(
+  'useref',
+  function(src, outputDir, baseDir, options = {}) {
 
-Elixir.extend('useref', function(src, outputDir, baseDir, options = {}) {
-  new UserefTask('useref', getPaths(src, baseDir, outputDir), options);
-});
+    new UserefTask(
+      'useref', getPaths(src, baseDir, outputDir), options
+    );
+  }
+);
 
 /**
  * Prep the Gulp src and output paths
