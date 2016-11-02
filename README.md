@@ -80,7 +80,11 @@ Note: It will not replace the assets in your app.blade.php - you should check if
     @endif
 
 ## Options
-This wrapper accepts two objects for configuration, the first one is for the wrapper itself and the second one is for useref ([documentation](https://github.com/jonkemp/gulp-useref))
+This wrapper accepts four arguments for configuration:
+  - php file paths (string|array)
+  - outputDir
+  - baseDir
+  - useref ([document](https://github.com/jonkemp/gulp-useref))
 
 ## Example
 This is an example of a Gulp file that runs wiredep to inject all our assets and then uses useref (searching in the public directory) to compile all the assets in `master.blade.php` :
