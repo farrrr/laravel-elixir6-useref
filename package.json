@@ -1,6 +1,6 @@
 {
     "name": "laravel-elixir6-useref",
-    "version": "1.1.1",
+    "version": "1.1.2",
     "description": "Useref Extension for Laravel Elixir 6.x",
     "main": "dist/index.js",
     "repository": {
@@ -20,12 +20,11 @@
         "useref"
     ],
     "dependencies": {
-        "gulp-clean-css": "^2.0.13",
-        "gulp-debug-streams": "^3.0.0",
+        "clean-css": "^3.4.20",
         "gulp-ignore": "^2.0.1",
-        "gulp-uglify": "^2.0.0",
         "gulp-useref": "^3.1.2",
-        "lodash": "^4.16.5"
+        "lodash": "^4.16.5",
+        "vinyl-map": "^1.0.1"
     },
     "devDependencies": {
         "babel-cli": "^6.18.0",

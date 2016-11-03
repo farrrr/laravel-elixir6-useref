@@ -1,9 +1,7 @@
+import CleanCss from 'clean-css';
 import gulpIgnore from 'gulp-ignore';
 import gulpif from 'gulp-if';
-import isArray from 'lodash/isArray';
-import mergeWith from 'lodash/mergeWith';
-import minifyCss from 'gulp-clean-css';
-import uglify from 'gulp-uglify';
+import map from 'vinyl-map';
 
 let gulpUseref;
 
@@ -25,8 +23,8 @@ class UserefTask extends Elixir.Task {
         .pipe(this.useref())
         .on('error', this.onError())
         .pipe(gulpIgnore('*.php'))
-        .pipe(gulpif('*.js', uglify()))
-        .pipe(gulpif('*.css', minifyCss()))
+        .pipe(gulpif('*.js', this.minifyJS()))
+        .pipe(gulpif('*.css', this.minifyCss()))
         .on('error', this.onError())
         .pipe(this.saveAs(gulp))
         .pipe(this.onSuccess())
@@ -34,9 +32,28 @@ class UserefTask extends Elixir.Task {
   }
 
   useref() {
-    this.recordStep('Parsing php file');
+    this.recordStep('Parsing PHP file');
 
     return gulpUseref(this.options);
+  }
+
+  minifyCss() {
+    this.recordStep('Minify CSS File');
+
+    return map(function (buff, filename) {
+      return new CleanCss(
+        Elixir.config.css.minifier.pluginOptions
+      )
+      .minify(buff.toString())
+      .styles;
+    });
+  }
+
+  minifyJS() {
+    this.recordStep('Minify JS File');
+    return Elixir.Plugins.uglify(
+      Elixir.config.js.uglify.options
+    );
   }
 }
 
